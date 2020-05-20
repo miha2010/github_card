@@ -1,5 +1,5 @@
-# GitHub Card Application
+# GitHub Card
 
-## Made by: Miha Santek
+## Created by: Miha
 
-## [Live Version]()
+[Live Version](https://epic-banach-96cdb0.netlify.app)
