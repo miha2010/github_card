@@ -17,19 +17,7 @@ class App extends React.Component {
     followers: '',
     following: '',
     homeUrl: '',
-    notFound: '',
-  }
-
-  fetchProfile = async (username) => {
-    const url = `${API}/${username}`;
-
-    try {
-      const { data: { login, name, avatar_url, location, public_repos, followers, following, html_url, message } } = await axios.get(url);
-
-      this.setState({ username: login, name, avatar: avatar_url, location, repos: public_repos, followers, following, homeUrl: html_url, notFound: message });
-    } catch (error) {
-      console.log('Oops, an error has occured!');
-    }
+    notFound: false,
   }
 
   componentDidMount() {
@@ -38,14 +26,24 @@ class App extends React.Component {
     this.fetchProfile(username);
   }
 
+  fetchProfile = async (username) => {
+    const url = `${API}/${username}`;
+
+    try {
+      const { data: { login, name, avatar_url, location, public_repos, followers, following, html_url } } = await axios.get(url);
+
+      this.setState({ username: login, name, avatar: avatar_url, location, repos: public_repos, followers, following, homeUrl: html_url });
+    } catch (error) {
+      this.setState({ notFound: true })
+    }
+  }
+
   render() {
     return (
-      <div>
-        <section id="card">
-          <SearchProfile fetchProfile={this.fetchProfile} />
-          <Profile profile={this.state} />
-        </section>
-      </div>
+      <section id="card">
+        <SearchProfile fetchProfile={this.fetchProfile} />
+        <Profile profile={this.state} />
+      </section>
     )
   }
 }

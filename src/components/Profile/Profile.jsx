@@ -5,7 +5,7 @@ const Profile = ({ profile }) => {
   const repositories = `${profile.homeUrl}?tab=repositories`;
   const following = `${profile.homeUrl}/following`;
 
-  if (profile.notFound === 'Not Found') {
+  if (profile.notFound) {
     return (
       <div className="notfound">
         <h2>Oops!!!</h2>
